@@ -2,7 +2,7 @@
 #include<iostream>
 #include<string>
 #include<queue>
-class BNode{
+class BNode{      
     public:
         BNode():elem(-1), left(nullptr), right(nullptr){};
         BNode(int n): elem(n), left(nullptr), right(nullptr){};

@@ -8,7 +8,7 @@ class BinaryTree{
         int set_root(char ch){
             if(arr[0] == '\0'){
                 arr[0] = ch;
-                return 0;
+                return 0;      
             }
             std::cout<<"The root already has element "<<arr[0]<<std::endl;
             return 1;
