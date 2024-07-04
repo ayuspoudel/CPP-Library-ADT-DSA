@@ -25,7 +25,7 @@ class BTree{
         void create();
         void display();
     protected:
-        void inordertraversal(BNode* root);
+        void preordertraversal(BNode* root);
 };
 void BTree::create(){
     std::queue<BNode*> Q;
@@ -55,17 +55,18 @@ void BTree::create(){
     }
     return;
 }
-void BTree::inordertraversal(BNode* root){
+void BTree::preordertraversal(BNode* root){
     if(root == nullptr){
         return;
     }
-    inordertraversal(root->left);
     std::cout<<root->elem<<", ";
-    inordertraversal(root->right);
+    preordertraversal(root->left);
+    preordertraversal(root->right);
 }
 
+
 void BTree::display(){
-   inordertraversal(root);
+   preordertraversal(root);
     return;
 }
 
