@@ -48,7 +48,6 @@ void BST::preordertraversal(BST* root){
     }
     std::cout<<root->elem<<std::endl;
     preordertraversal(root->left);
-    
     preordertraversal(root->right);
 }
 
