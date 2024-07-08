@@ -25,12 +25,31 @@ public:
     BNode* search(int n);
     void preorderTraversal();
     BNode* getRoot() { return this->root; }
+	void inorderTraversal();
 
 private:
     BNode* root;
     BNode* insert(BNode* node, int n);
     void preorderTraversal(BNode* root);
+	void inorderTraversal(BNode* root);
 };
+
+BNode* BSTree::search(int n){
+	BNode* pointer;
+	pointer = this->root;
+	while(pointer!=nullptr){
+		if(pointer->elem == n){
+			return pointer;
+		}
+		else if(pointer->elem > n){
+			pointer = pointer->left;
+		}
+		else{
+			pointer = pointer->right;
+		}
+	}
+	return nullptr;
+}
 
 BNode* BSTree::insert(BNode* node, int n) {
     if (node == nullptr) {
@@ -62,10 +81,30 @@ void BSTree::preorderTraversal(BNode* root) {
         pointerStack.pop();
         pointer = pointer->right;
     }
+	std::cout<<std::endl;
 }
 
 void BSTree::inorderTraversal(BNode* root){
-	
+	if(root == nullptr){return;}
+	std::stack<BNode*> pointerstack;
+	BNode* pointer;
+	pointer = root;
+	while(pointer!=nullptr||!pointerstack.empty()){
+		if(pointer!=nullptr){
+			pointerstack.push(pointer);
+			pointer = pointer->left;
+		}
+		else{
+			pointer = pointerstack.top();
+			pointerstack.pop();
+			std::cout<<pointer->elem<<" ";
+			pointer = pointer->right;
+		}
+	}
+	std::cout<<std::endl;
+}
+void BSTree::inorderTraversal() {
+    inorderTraversal(root);
 }
 
 void BSTree::preorderTraversal() {
@@ -74,12 +113,22 @@ void BSTree::preorderTraversal() {
 
 int main() {
     BSTree* newSearchTree = new BSTree();
-    newSearchTree->insert(10);
-    newSearchTree->insert(20);
+    newSearchTree->insert(9);
+    newSearchTree->insert(15);
     newSearchTree->insert(5);
-    newSearchTree->insert(30);
-    newSearchTree->insert(0);
-    newSearchTree->insert(50);
+    newSearchTree->insert(20);
+    newSearchTree->insert(16);
+    newSearchTree->insert(8);
+    newSearchTree->insert(12);
+    newSearchTree->insert(3);
+    newSearchTree->insert(6);
     newSearchTree->preorderTraversal();
+	newSearchTree->inorderTraversal();
+	if(newSearchTree->search(50)){
+		std::cout<<"Found 40";
+	} else{
+		std::cout<<"40 not found";
+	}
+	std::cout<<std::endl;
     return EXIT_SUCCESS;
 }
