@@ -96,6 +96,18 @@ Node* LRRotation(Node* root){
     root = LLRotation(root);
     return root;
 }
+Node* RLRotation(Node* root){
+    if(root == nullptr){
+        return nullptr;
+    }
+    Node* rr = root->rchild;
+    Node* rrl = root->rchild->lchild;
+    root->rchild = rrl;
+    rr->lchild = rrl->rchild;
+    rrl->rchild = rr;
+    root = RRRotation(root);
+    return root;
+}
 struct Node* RInsert(struct Node *tree, int n){
     if(tree == nullptr){
         struct Node* p = (struct Node* )malloc(sizeof(struct Node));
@@ -126,9 +138,9 @@ struct Node* RInsert(struct Node *tree, int n){
     if(balanceFactor(tree) == -2 && balanceFactor(tree->rchild) == -1){
         tree = RRRotation(tree);
     }
-    // if(balanceFactor(tree) == -2 && balanceFactor(tree->rchild)==1){
-    //     RLRotation(tree);
-    // }
+    if(balanceFactor(tree) == -2 && balanceFactor(tree->rchild)==1){
+        tree = RLRotation(tree);
+    }
     return tree;
 }
 
@@ -171,5 +183,18 @@ int main(){
     preOrderTraversal(avltreelr);
     std::cout<<"\nThe inorder traversal is: ";
     InOrderTraversal(avltreelr);
+    std::cout<<std::endl;
+    struct Node* avltreerl = nullptr;
+    avltreerl = RInsert(avltreerl, 20);
+    avltreerl = RInsert(avltreerl, 30);
+    avltreerl = RInsert(avltreerl, 25);
+    int h4 = TreeHeight(avltreerl);
+    int bf4 = balanceFactor(avltreerl);
+    std::cout<<"The height of the current tree is: "<<h4<<std::endl;
+    std::cout<<"The balance factor of the current tree is: "<<bf4;
+    std::cout<<"\nThe preorder traversal is: ";
+    preOrderTraversal(avltreerl);
+    std::cout<<"\nThe inorder traversal is: ";
+    InOrderTraversal(avltreerl);
     return EXIT_SUCCESS;
 }
