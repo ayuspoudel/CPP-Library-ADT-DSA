@@ -108,6 +108,21 @@ Node* RLRotation(Node* root){
     root = RRRotation(root);
     return root;
 }
+Node* checkImbalance(struct Node* tree){
+    if(balanceFactor(tree) == 2 && balanceFactor(tree->lchild) == 1){
+        tree = LLRotation(tree);
+    }
+    if(balanceFactor(tree) == 2 && balanceFactor(tree->lchild) == -1){
+        tree = LRRotation(tree);
+    }
+    if(balanceFactor(tree) == -2 && balanceFactor(tree->rchild) == -1){
+        tree = RRRotation(tree);
+    }
+    if(balanceFactor(tree) == -2 && balanceFactor(tree->rchild)==1){
+        tree = RLRotation(tree);
+    }
+    return tree;
+}
 struct Node* RInsert(struct Node *tree, int n){
     if(tree == nullptr){
         struct Node* p = (struct Node* )malloc(sizeof(struct Node));
@@ -129,18 +144,7 @@ struct Node* RInsert(struct Node *tree, int n){
         return tree;
     }
     tree->height = TreeHeight(tree);
-    if(balanceFactor(tree) == 2 && balanceFactor(tree->lchild) == 1){
-        tree = LLRotation(tree);
-    }
-    if(balanceFactor(tree) == 2 && balanceFactor(tree->lchild) == -1){
-        tree = LRRotation(tree);
-    }
-    if(balanceFactor(tree) == -2 && balanceFactor(tree->rchild) == -1){
-        tree = RRRotation(tree);
-    }
-    if(balanceFactor(tree) == -2 && balanceFactor(tree->rchild)==1){
-        tree = RLRotation(tree);
-    }
+    tree = checkImbalance(tree);
     return tree;
 }
 

@@ -49,6 +49,7 @@
         "optional": "cpp",
         "unordered_map": "cpp",
         "vector": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "iterator": "cpp"
     }
 }
